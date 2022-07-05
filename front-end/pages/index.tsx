@@ -1,17 +1,28 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
-const Home: NextPage = () => {
+import { Exam } from '../interfaces/Exam';
+import { useStateContext } from '../contexts/ContextProvider';
+import Main from '../components/Main';
+
+interface IProps {
+    success: boolean;
+    data: Exam[];
+};
+
+const Home = ({ data }: { data: IProps }) => {
+    const { isDarkMode } = useStateContext();
+
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center py-2">
+        <>
             <Head>
-                <title>Doinel Atanasiu — Quick Links</title>
+                <title>Doinel Atanasiu — Uni Grades</title>
 
                 <meta
                     name="description"
-                    content="Doinel Atanasiu's Quick Links"
+                    content="Doinel Atanasiu's Uni Grades"
                 />
-                <meta name="keywords" content="Quick Links" />
+                <meta name="keywords" content="Uni Grades" />
                 <meta name="author" content="Doinel Atanasiu" />
                 <meta name="copyright" content="Doinel Atanasiu" />
                 <meta name="robots" content="noindex, nofollow" />
@@ -21,20 +32,20 @@ const Home: NextPage = () => {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@SITE" />
                 <meta name="twitter:creator" content="@AtanasiuDoinel" />
-                <meta name="twitter:title" content="Doinel Atanasiu — Quick Links" />
+                <meta name="twitter:title" content="Doinel Atanasiu — Uni Grades" />
                 <meta
                     name="twitter:description"
-                    content="Doinel Atanasiu's Quick Links"
+                    content="Doinel Atanasiu's Uni Grades"
                 />
                 <meta
                     name="twitter:image"
                     content="IMAGE URL"
                 />
                 <meta property="og:url" content="URL" />
-                <meta property="og:title" content="Doinel Atanasiu — Quick Links" />
+                <meta property="og:title" content="Doinel Atanasiu — Uni Grades" />
                 <meta
                     property="og:description"
-                    content="Doinel Atanasiu's Quick Links"
+                    content="Doinel Atanasiu's Uni Grades"
                 />
                 <meta
                     property="og:image"
@@ -45,8 +56,8 @@ const Home: NextPage = () => {
                 <link rel="manifest" href="/manifest.json"></link>
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
-                <meta name="application-name" content="D1A — Quick Links" />
-                <meta name="apple-mobile-web-app-title" content="D1A — Quick Links" />
+                <meta name="application-name" content="D1A — Uni Grades" />
+                <meta name="apple-mobile-web-app-title" content="D1A — Uni Grades" />
                 <meta name="theme-color" content="#0063EB" />
                 <meta name="msapplication-navbutton-color" content="#0063EB" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -71,25 +82,29 @@ const Home: NextPage = () => {
                 <link rel='apple-touch-icon' href='/favicon/favicon-180.png' sizes='180x180' />
             </Head>
 
-            <header className="flex h-24 w-full items-center justify-center border-b">
-                <p>
-                    HEADER
-                </p>
-            </header>
-
-            <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-                <h1>
-                    NEXT JS TEMPLATE
-                </h1>
-            </main>
-
-            <footer className="flex h-24 w-full items-center justify-center border-t">
-                <p>
-                    FOOTER
-                </p>
-            </footer>
-        </div>
+            <div className={` w-full main-h flex justify-center items-center transition-colors overflow-hidden ${ isDarkMode ? 'bg-zinc-700' : 'bg-slate-100' } `}>
+                <Main data={ data.data } />
+            </div>
+        </>
     );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const response = await fetch('http://localhost:5007/api/exams');
+    const data = await response.json();
+
+    if(!response)
+    {
+        return {
+            notFound: true
+        };
+    }
+
+    return {
+        props: {
+            data
+        }
+    };
+};
