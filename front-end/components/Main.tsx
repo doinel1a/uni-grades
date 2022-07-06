@@ -1,36 +1,38 @@
-import { useState } from 'react';
-
 import { Exam } from '../interfaces/Exam';
 import { useStateContext } from '../contexts/ContextProvider';
 import Paragraph from './HtmlElements/Paragraph';
 
+import apis from '../utils/Api';
 import Numbers from '../utils/Numbers';
 import Row from './Row';
-import Modal from './Modal';
+import { Dispatch, SetStateAction } from 'react';
 
-interface IProps {
-    data: Exam[];
+interface IMainProps {
+    examsList: Exam[];
+    setExamsList: Dispatch<SetStateAction<Exam[]>>
 };
 
-const Main: React.FC<IProps> = ({ data }) => {
+const Main: React.FC<IMainProps> = ({ examsList, setExamsList }) => {
     const { isDarkMode } = useStateContext();
-
-    const [isEditRow, setIsEditRow] = useState<boolean>(false);
 
     let totPoints: number = 0;
     let totCredits: number = 0;
     let totGrades: number = 0;
 
-    data.forEach( _data => {
-        totPoints += (_data.credits * _data.grade);
-        totCredits += _data.credits;
-        totGrades += _data.grade;
+    examsList.forEach( _exam => {
+        totPoints += (_exam.credits * _exam.grade);
+        totCredits += _exam.credits;
+        totGrades += _exam.grade;
     });
 
-    const deleteExamHandler: Function = (_e: MouseEvent, _id: string) => {
+    const deleteExamHandler: Function = async (_e: MouseEvent, _id: string) => {
         _e.preventDefault();
-        <Modal />
-        console.log(_id);
+
+        await apis.deleteExam(_id);
+
+        setExamsList( examsList.filter(
+            _exam => _exam._id !== _id
+        ));
     };
 
     return(
@@ -49,7 +51,7 @@ const Main: React.FC<IProps> = ({ data }) => {
                 </div>
                 <div className='flex rounded-lg'>
                     {/* STATIC AVAGRES */}
-                    <div className='w-2/3 lg:w-3/4 flex flex-col gap-y-1 text-left'>
+                    <div className='w-2/3 lg:w-3/5 flex flex-col gap-y-1 text-left'>
                         <Paragraph 
                             text='Arithmetic average of the exams'
                             customCss='lg:text-lg'
@@ -69,9 +71,9 @@ const Main: React.FC<IProps> = ({ data }) => {
                     </div>
 
                     {/* DYNAMIC AVAGRES */}
-                    <div className='w-1/3 lg:w-1/4 flex flex-col gap-y-1 text-right'>
+                    <div className='w-1/3 lg:w-2/5 flex flex-col gap-y-1 text-right'>
                         <Paragraph 
-                            text={`${ Numbers(totGrades / data.length, 3) } / 30`}
+                            text={`${ Numbers(totGrades / examsList.length, 3) } / 30`}
                             customCss='font-bold lg:text-lg'
                         />
                         <Paragraph 
@@ -79,7 +81,7 @@ const Main: React.FC<IProps> = ({ data }) => {
                             customCss='font-bold lg:text-lg'
                         />
                         <Paragraph 
-                            text={`${ Numbers(((totGrades / data.length) * 110) / 30, 3) } / 110`}
+                            text={`${ Numbers(((totGrades / examsList.length) * 110) / 30, 3) } / 110`}
                             customCss='font-bold lg:text-lg'
                         />
                         <Paragraph 
@@ -98,7 +100,7 @@ const Main: React.FC<IProps> = ({ data }) => {
                 </div>
                 <div className='w-full main-h flex flex-col gap-y-2 lg:gap-y-4 p-1 pr-2 lg:p-3 lg:pr-5 border-x-2 border-t-2 rounded-t-xl overflow-auto lg:overflow-hidden lg:hover:overflow-auto'>
                 {
-                    data.map( _data => (
+                    examsList.map( _data => (
                         <Row
                             key={ _data._id}
                             id={ _data._id}
@@ -111,6 +113,7 @@ const Main: React.FC<IProps> = ({ data }) => {
                 }
                 </div>
             </section>
+            <section></section>
         </main>
     );
 };
