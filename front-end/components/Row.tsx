@@ -38,7 +38,7 @@ const Row: React.FC<IRowProps> = ({ id, subject, credits, grade, deleteExamHandl
                 </div>
                 <div className='w-full h-2/3 flex flex-col lg:flex-row justify-around items-end lg:pb-4 px-2 py-1'>
                     <button type='button' aria-label="Edit exam's details">
-                        <Link href={ `/${encodeURIComponent(id)}` }>
+                        <Link href={ `/update/${encodeURIComponent(id)}` }>
                             <a>
                                 <FontAwesomeIcon
                                     icon={ faPenToSquare }

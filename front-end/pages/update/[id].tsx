@@ -3,13 +3,13 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useState } from 'react';
 
-import { Exam } from '../interfaces/Exam';
-import { useStateContext } from '../contexts/ContextProvider';
+import { Exam } from '../../interfaces/Exam';
+import { useStateContext } from '../../contexts/ContextProvider';
 
-import apis from '../utils/Api';
+import apis from '../../utils/Api';
 
-import Paragraph from '../components/HtmlElements/Paragraph';
-import Form from '../components/Form';
+import Paragraph from '../../components/HtmlElements/Paragraph';
+import Form from '../../components/Form';
 
 interface IUpdateExamProps {
     success: boolean;
@@ -18,6 +18,8 @@ interface IUpdateExamProps {
 
 const UpdateExam = ({ data }: { data: IUpdateExamProps }) => {
     const { isDarkMode } = useStateContext();
+
+    console.log(data)
 
     const router = useRouter();
 
@@ -140,14 +142,16 @@ export default UpdateExam;
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { id } = context.query;
     const response = await fetch(`http://localhost:5007/api/exam/${ id }`);
-    const data = await response.json();
+    let data: any[] = [];
 
-    if(!response)
+    if(!response || response.status == 400)
     {
         return {
             notFound: true
         };
     }
+
+    data = await response.json();
 
     return {
         props: {
