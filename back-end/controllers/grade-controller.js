@@ -62,7 +62,7 @@ updateExam = async (req, res) => {
         });
     }
 
-    await Exam.findOne({ _id: req.params.id}, (_err, _exam) => {
+    Exam.findOne({ _id: req.params.id}, (_err, _exam) => {
         if(_err)
         {
             return res.status(404).json({
