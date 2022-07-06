@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Main from '../components/Main';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { Exam } from '../interfaces/Exam';
 import { useStateContext } from '../contexts/ContextProvider';
@@ -12,9 +12,7 @@ interface IHomeProps {
 };
 
 const Home = ({ data }: { data: IHomeProps }) => {
-    const { isDarkMode } = useStateContext();
-
-    const [examsList, setExamsList] = useState<Exam[]>([]);
+    const { isDarkMode, setExamsList } = useStateContext();
 
     useEffect( () => {
         setExamsList(data.data);
@@ -90,10 +88,7 @@ const Home = ({ data }: { data: IHomeProps }) => {
             </Head>
 
             <div className={` w-full main-h flex justify-center items-center transition-colors overflow-hidden ${ isDarkMode ? 'bg-zinc-700' : 'bg-slate-100' } `}>
-                <Main 
-                    examsList={ examsList } 
-                    setExamsList={ setExamsList }
-                />
+                <Main />
             </div>
         </>
     );
