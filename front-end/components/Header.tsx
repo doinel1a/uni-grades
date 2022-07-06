@@ -13,7 +13,7 @@ const Header: React.FC = () => {
             <div className='container h-full flex items-center px-3'>
                 <Link href='/'>
                     <a className='mr-auto'>
-                        <Paragraph text='UniGrades' customCss='logo flex-shrink-0' />
+                        <Paragraph text='UniGrades' customCss='logo flex-shrink-0 !text-2xl' />
                     </a>
                 </Link>
                 <button

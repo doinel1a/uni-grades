@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --header-height: 3.5rem;
+    --footer-height: 2.5rem;
+}
+
+/* HEADER HEIGHT */
+.header-h {
+    height: var(--header-height);
+}
+
+/* MAIN CONTENT HEIGHT */
+.main-h {
+    height: calc(
+        100% - (var(--header-height) + var(--footer-height))
+    );
+}
+
+/* FOOTER HEIGHT */
+.footer-h {
+    height: var(--footer-height);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 2rem;
+    cursor: pointer;
+}
+
+.logo::before {
+    content: "< ";
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 2rem;
+    transition: color;
+    transition-duration: 150ms;
+}
+
+.logo::after {
+    content: " />";
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 2rem;
+    transition: color;
+    transition-duration: 150ms;
+}
+
+.logo:hover::before,
+.logo:hover::after {
+    color: rgb(37 99 235);
+}

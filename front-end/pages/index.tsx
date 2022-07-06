@@ -4,13 +4,12 @@ import Head from 'next/head';
 import { Exam } from '../interfaces/Exam';
 import { useStateContext } from '../contexts/ContextProvider';
 import Main from '../components/Main';
-
-interface IProps {
+interface IHomeProps {
     success: boolean;
     data: Exam[];
 };
 
-const Home = ({ data }: { data: IProps }) => {
+const Home = ({ data }: { data: IHomeProps }) => {
     const { isDarkMode } = useStateContext();
 
     return (
