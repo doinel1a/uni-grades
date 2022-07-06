@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useState } from 'react';
 
+import { BASE_URL } from '../../const/API_URLS';
 import { Exam } from '../../interfaces/Exam';
 import { useStateContext } from '../../contexts/ContextProvider';
 
@@ -18,9 +19,7 @@ interface IUpdateExamProps {
 
 const UpdateExam = ({ data }: { data: IUpdateExamProps }) => {
     const { isDarkMode } = useStateContext();
-
-    console.log(data)
-
+    
     const router = useRouter();
 
     const [_id, setId] = useState<string>('');
@@ -141,7 +140,7 @@ export default UpdateExam;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { id } = context.query;
-    const response = await fetch(`http://localhost:5007/api/exam/${ id }`);
+    const response = await fetch(`${ BASE_URL }/exam/${ id }`);
     let data: any[] = [];
 
     if(!response || response.status == 400)

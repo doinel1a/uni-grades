@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+import { BASE_URL } from '../const/API_URLS';
 import { Exam } from '../interfaces/Exam';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5007/api'
+    baseURL: BASE_URL
 });
 
 export const insertExam = (_payload: any) => api.post('/exam', _payload);

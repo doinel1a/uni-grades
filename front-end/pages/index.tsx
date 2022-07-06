@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Main from '../components/Main';
 import { useEffect } from 'react';
 
+import { BASE_URL } from '../const/API_URLS';
 import { Exam } from '../interfaces/Exam';
 import { useStateContext } from '../contexts/ContextProvider';
 
@@ -97,7 +98,7 @@ const Home = ({ data }: { data: IHomeProps }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const response = await fetch('http://localhost:5007/api/exams');
+    const response = await fetch(`${ BASE_URL }/exams`);
     let data: any[] = []
 
     if(!response || response.status == 404)
