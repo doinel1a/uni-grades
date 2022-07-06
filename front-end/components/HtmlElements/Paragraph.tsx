@@ -9,7 +9,7 @@ const Paragraph: React.FC<IParagraphProps> = ({ text, customCss }) => {
     const { isDarkMode } = useStateContext();
 
     return(
-        <p className={` flex-shrink-0 transition-colors ${ isDarkMode ? 'text-white' : 'text-[#333]' } ${ customCss ? customCss : '' } `}>
+        <p className={` flex-shrink-0 lg:text-lg transition-colors ${ isDarkMode ? 'text-white' : 'text-[#333]' } ${ customCss ? customCss : '' } `}>
             { text }
         </p>
     );

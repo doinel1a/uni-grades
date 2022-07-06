@@ -1,17 +1,19 @@
+import { MouseEventHandler } from 'react';
 import Paragraph from './Paragraph';
 
 interface IButtonSecondary {
     text: string;
-    url: string;
+    onClick?: MouseEventHandler | undefined;
 };
 
-const ButtonSecondary: React.FC<IButtonSecondary> = ({ text, url}) => {
+const ButtonSecondary: React.FC<IButtonSecondary> = ({ text, onClick }) => {
     return(
         <button 
             type='button'
-            className='h-14 flex-shrink-0 rounded-lg transition-colors'
+            className='h-12 flex-shrink-0 rounded-lg transition-colors'
+            onClick={ onClick }
         >
-            <Paragraph text={ text } customCss='w-42 text-xl font-bold !text-red-400 hover:!text-red-600' />
+            <Paragraph text={ text } customCss='w-42 font-bold !text-red-400 hover:!text-red-600' />
         </button>
     );
 };
