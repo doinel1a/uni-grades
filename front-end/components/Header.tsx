@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,7 +11,11 @@ const Header: React.FC = () => {
     return(
         <header className={` w-full header-h sticky top-0 z-10 flex justify-center border-b transition-colors ${ isDarkMode ? 'bg-zinc-900' : 'bg-gray-400' } `}>
             <div className='container h-full flex items-center px-3'>
-                <Paragraph text='UniGrades' customCss='logo flex-shrink-0 mr-auto' />
+                <Link href='/'>
+                    <a className='mr-auto'>
+                        <Paragraph text='UniGrades' customCss='logo flex-shrink-0' />
+                    </a>
+                </Link>
                 <button
                     type='button'
                     aria-label='Insert new Exam'
