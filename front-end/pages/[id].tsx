@@ -2,16 +2,14 @@ import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useState } from 'react';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { Exam } from '../interfaces/Exam';
 import { useStateContext } from '../contexts/ContextProvider';
 
-import ButtonPrimary from '../components/HtmlElements/ButtonPrimary';
-import ButtonSecondary from '../components/HtmlElements/ButtonSecondary';
-
 import apis from '../utils/Api';
+
 import Paragraph from '../components/HtmlElements/Paragraph';
+import Form from '../components/Form';
 
 interface IUpdateExamProps {
     success: boolean;
@@ -20,6 +18,7 @@ interface IUpdateExamProps {
 
 const UpdateExam = ({ data }: { data: IUpdateExamProps }) => {
     const { isDarkMode } = useStateContext();
+
     const router = useRouter();
 
     const [_id, setId] = useState<string>('');
@@ -119,67 +118,17 @@ const UpdateExam = ({ data }: { data: IUpdateExamProps }) => {
             <main className={` w-full main-h flex flex-col justify-center items-center ${ isDarkMode ? 'bg-zinc-700' : 'bg-gray-100' } `}>
                 <section className='container h-full flex flex-col justify-center items-center gap-y-8 px-1'>
                     <Paragraph text="UPATE EXAMS'S DETAILS" customCss='!text-3xl text-center'/>
-                    <form 
-                        className={` w-80 lg:w-96 h-96 lg:h-96 flex flex-col justify-between p-4 rounded-xl ${ isDarkMode ? 'bg-zinc-800' : 'bg-gray-200' } `}
-                        onSubmit={ _e => updateExam(_e) }
-                    >
-                        <div className='flex flex-col gap-y-2'>
-                            <label htmlFor='subject'>
-                                <Paragraph
-                                    text='Subject'
-                                    customCss='font-bold'
-                                />
-                            </label>
-                            <input 
-                                id='subject' 
-                                type='text'
-                                className='rounded-lg ml-3 p-1 outline-none focus:bg-gray-300' 
-                                value={ subject } 
-                                onChange={ _e => setSubject(_e.target.value) }
-                            />
-
-                            <label htmlFor='credits'>
-                                <Paragraph
-                                    text='Credits'
-                                    customCss='font-bold'
-                                />
-                            </label>
-                            <input 
-                                id='credits' 
-                                type='text' 
-                                className='rounded-lg ml-3 p-1 outline-none focus:bg-gray-300' 
-                                value={ credits } 
-                                onChange={ _e => setCredits(Number(_e.target.value)) }
-                            />
-
-                            <label htmlFor='grade'>
-                                <Paragraph
-                                    text='Grade'
-                                    customCss='font-bold'
-                                />
-                            </label>
-                            <input 
-                                id='grade' 
-                                type='text'
-                                className='rounded-lg ml-3 p-1 outline-none focus:bg-gray-300' 
-                                value={ grade } 
-                                onChange={ _e => setGrade(Number(_e.target.value)) }
-                            />
-                        </div>
-
-                        <div className='flex justify-between px-4'>
-                            <ButtonPrimary
-                                type='submit'
-                                text='Update'
-                                icon={ faCheck }
-                                customCss='bg-green-600 hover:bg-green-700 focus:bg-green-700'
-                            />
-                            <ButtonSecondary 
-                                text='Cancel'
-                                onClick={ () => router.push('/') }
-                            />
-                        </div>
-                    </form>
+                    <Form
+                        subject={ subject }
+                        setSubject={ setSubject }
+                        credits={ credits }
+                        setCredits={ setCredits }
+                        grade={ grade }
+                        setGrade={ setGrade }
+                        action={ updateExam }
+                        primaryButtonText='Update'
+                        buttonSecondaryAction={ () => router.push('/') }
+                    />
                 </section>
             </main>
         </>
