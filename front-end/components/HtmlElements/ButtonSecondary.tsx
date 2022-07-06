@@ -1,4 +1,5 @@
 import { MouseEventHandler } from 'react';
+
 import Paragraph from './Paragraph';
 
 interface IButtonSecondary {

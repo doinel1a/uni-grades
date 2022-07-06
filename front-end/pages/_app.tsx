@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 
 import { ContextProvider } from '../contexts/ContextProvider';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import { useStateContext } from '../contexts/ContextProvider';
+
 import Paragraph from '../components/HtmlElements/Paragraph';
 import ButtonSecondary from '../components/HtmlElements/ButtonSecondary';
 
@@ -50,7 +51,6 @@ const FourOuFour: NextPage = () => {
                         <a>
                             <ButtonSecondary
                                 text='Back to the Home page'
-                                url='/'
                             />
                         </a>
                     </Link>

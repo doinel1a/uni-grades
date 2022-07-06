@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { useStateContext } from '../contexts/ContextProvider';
+
 import Paragraph from './HtmlElements/Paragraph';
 import Link from 'next/link';
 
