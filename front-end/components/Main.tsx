@@ -55,47 +55,57 @@ const Main: React.FC = () => {
                             customCss='ml-1 !text-2xl lg:!text-4xl'
                         />
                     </div>
-                    <div className='flex rounded-lg'>
-                        {/* STATIC AVAGRES */}
-                        <div className='w-2/3 lg:w-3/5 flex flex-col gap-y-1 text-left'>
-                            <Paragraph 
-                                text='Arithmetic average of the exams'
-                                customCss='lg:text-lg'
-                            />
-                            <Paragraph 
-                                text='Weighted average of the exams'
-                                customCss='lg:text-lg'
-                            />
-                            <Paragraph 
-                                text='Arithmetic average of degree'
-                                customCss='lg:text-lg'
-                            />
-                            <Paragraph 
-                                text='Weighted average of degree'
-                                customCss='lg:text-lg'
-                            />
-                        </div>
+                    {
+                        examsList.length > 0 ?
+                            <div className='flex'>
+                                {/* STATIC AVAGRES */}
+                                <div className='w-2/3 lg:w-3/5 flex flex-col gap-y-1 text-left'>
+                                    <Paragraph 
+                                        text='Arithmetic average of the exams'
+                                        customCss='lg:text-lg'
+                                    />
+                                    <Paragraph 
+                                        text='Weighted average of the exams'
+                                        customCss='lg:text-lg'
+                                    />
+                                    <Paragraph 
+                                        text='Arithmetic average of degree'
+                                        customCss='lg:text-lg'
+                                    />
+                                    <Paragraph 
+                                        text='Weighted average of degree'
+                                        customCss='lg:text-lg'
+                                    />
+                                </div>
 
-                        {/* DYNAMIC AVAGRES */}
-                        <div className='w-1/3 lg:w-2/5 flex flex-col gap-y-1 text-right'>
-                            <Paragraph 
-                                text={`${ Numbers(totGrades / examsList.length, 3) } / 30`}
-                                customCss='font-bold lg:text-lg'
-                            />
-                            <Paragraph 
-                                text={`${ Numbers(totPoints / totCredits, 3) } / 30`}
-                                customCss='font-bold lg:text-lg'
-                            />
-                            <Paragraph 
-                                text={`${ Numbers(((totGrades / examsList.length) * 110) / 30, 3) } / 110`}
-                                customCss='font-bold lg:text-lg'
-                            />
-                            <Paragraph 
-                                text={`${ Numbers(((totPoints / totCredits) * 110) / 30, 3) } / 110`}
-                                customCss='font-bold lg:text-lg'
-                            />
-                        </div>
-                    </div>
+                                {/* DYNAMIC AVAGRES */}
+                                <div className='w-1/3 lg:w-2/5 flex flex-col gap-y-1 text-right'>
+                                    <Paragraph 
+                                        text={`${ Numbers(totGrades / examsList.length, 3) } / 30`}
+                                        customCss='font-bold lg:text-lg'
+                                    />
+                                    <Paragraph 
+                                        text={`${ Numbers(totPoints / totCredits, 3) } / 30`}
+                                        customCss='font-bold lg:text-lg'
+                                    />
+                                    <Paragraph 
+                                        text={`${ Numbers(((totGrades / examsList.length) * 110) / 30, 3) } / 110`}
+                                        customCss='font-bold lg:text-lg'
+                                    />
+                                    <Paragraph 
+                                        text={`${ Numbers(((totPoints / totCredits) * 110) / 30, 3) } / 110`}
+                                        customCss='font-bold lg:text-lg'
+                                    />
+                                </div>
+                            </div>
+                        :
+                            <div className='h-1/2 flex justify-center items-center'>
+                                <Paragraph 
+                                    text='Please insert Exams'
+                                    customCss='font-bold lg:text-2xl'
+                                />
+                            </div>
+                    }
                 </section>
                 <section className='container lg:w-full h-3/4 lg:h-full lg:mt-10'>
                     <div className='text-left mb-2 lg:mb-4'>
@@ -106,16 +116,24 @@ const Main: React.FC = () => {
                     </div>
                     <div className='w-full main-h flex flex-col gap-y-2 lg:gap-y-4 p-1 pr-2 lg:p-3 lg:pr-5 border-x-2 border-t-2 rounded-t-xl overflow-auto lg:overflow-hidden lg:hover:overflow-auto'>
                     {
-                        examsList.map( _data => (
-                            <Row
-                                key={ _data._id}
-                                id={ _data._id}
-                                subject={ _data.subject }
-                                credits={ _data.credits }
-                                grade={ _data.grade }
-                                deleteExamHandler={ deleteExamHandler }
-                            />
-                        ))
+                        examsList.length > 0 ?
+                            examsList.map( _data => (
+                                <Row
+                                    key={ _data._id}
+                                    id={ _data._id}
+                                    subject={ _data.subject }
+                                    credits={ _data.credits }
+                                    grade={ _data.grade }
+                                    deleteExamHandler={ deleteExamHandler }
+                                />
+                            ))
+                        :
+                            <div className='flex justify-center items-center'>
+                                <Paragraph 
+                                    text='Please insert Exams'
+                                    customCss='font-bold lg:text-2xl'
+                                />
+                            </div>
                     }
                     </div>
                 </section>

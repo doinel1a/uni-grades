@@ -15,7 +15,7 @@ const Home = ({ data }: { data: IHomeProps }) => {
     const { isDarkMode, setExamsList } = useStateContext();
 
     useEffect( () => {
-        setExamsList(data.data);
+        data.data ? setExamsList(data.data) : setExamsList([]);
     }, []);
 
     return (
@@ -98,14 +98,18 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const response = await fetch('http://localhost:5007/api/exams');
-    const data = await response.json();
+    let data: any[] = []
 
-    if(!response)
+    if(!response || response.status == 404)
     {
         return {
-            notFound: true
+            props: {
+                data
+            }
         };
     }
+
+    data = await response.json();
 
     return {
         props: {
