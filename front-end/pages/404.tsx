@@ -37,15 +37,15 @@ const FourOuFour: NextPage = () => {
                 <div className='max-w-3xl flex flex-col items-center gap-y-6'>
                     <Paragraph
                         text='404'
-                        customCss='text-9xl font-bold'
+                        customCss='!text-9xl font-bold'
                     />
                     <Paragraph
                         text='You have found a secret place.'
-                        customCss='text-4xl text-center font-bold'
+                        customCss='!text-4xl text-center font-bold'
                     />
                     <Paragraph
                         text='Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has been moved to another URL.'
-                        customCss='text-2xl text-center'
+                        customCss='!text-2xl text-center'
                     />
                     <Link href='/'>
                         <a>
